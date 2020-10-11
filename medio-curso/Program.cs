@@ -1,12 +1,19 @@
 ﻿using System;
 using System.Threading;
-using System.Linq;
 using System.Collections.Generic;
-using System.Numerics;
+using System.Diagnostics;
+using ScottPlot;
 
 namespace medio_curso
 {
-    
+    class HilosTiempo{
+        public double hilos;
+        public double tiempo;
+        public HilosTiempo(double hilos,double tiempo){
+            this.hilos = hilos;
+            this.tiempo = tiempo;
+        }
+    }
     class Program
     {
         static double[][] matrix3;
@@ -50,9 +57,9 @@ namespace medio_curso
                 */
             };
 
-             double[][] matrix2 = new double[3][] {
-                  new double[]{ 1, 2,3,4,5,6,7,8,9,4}, 
-                new double[]{ 3, 4,9,8,7,6,5,4,3,2}, 
+            double[][] matrix2 = new double[3][] {
+                new double[]{ 1, 2,3,4,5,6,7,8,9,4}, 
+                new double[]{ 3, 4,9,8,7,6,5,4,3,2},
                 new double[]{ 5, 6,5,4,3,2,9,8,7,6 }
             };
 
@@ -76,9 +83,6 @@ namespace medio_curso
                     counter++;
                 }
             }
-            // for(int i = 0; i< matrix2OneDim.Length; i++) {
-            //     Console.WriteLine($"{matrix2OneDim[i]}");
-            // }
 
             // # iteraciones
             int n = 3;
@@ -88,18 +92,16 @@ namespace medio_curso
                 for(int i=0; i < n; i ++) { // Guardando variacion de hilos
                     var_hilos[i] = hilos_init;
                     hilos_init += 2;
-                    // Console.Write($"{var_hilos[i]}, ");
                 }
-            //   Console.Write("\n");  
             } else {
                 throw new Exception("El numero de hilos supera la cantidad de hilos disponibles");
             }
+            
+            List<HilosTiempo> vlsGrafica = new List<HilosTiempo>();
 
             for(int q=0; q < n; q ++) { // Ciclo de iteraciones
-
+                TimeSpan tiempo = new TimeSpan();
                 Console.WriteLine($"Iteracion: {q}");
-
-                 
                 Thread[] hilos = new Thread[var_hilos[q]]; // Serializando hilos
                 for(int i=0; i<var_hilos[q];i++) { 
                     hilos[i] = new Thread(multiply); 
@@ -116,32 +118,63 @@ namespace medio_curso
                     double[][] tempBlock = new double[n_block][]; // Segmentos
                     for(int i=0; i < n_block; i++) { //Asignando bloques (filas) a los segmentos
                         tempBlock[i] = matrix[counterBlock+i];
-
                     }
-                    // imprimir(tempBlock);
                     // Numero de filas = bloques, inicializando hilos y realizando operaciones por bloques
-                    for(int i=0; i < n_block; i++) { 
+                    for(int i=0; i < n_block; i++) {
                         
                         double[] temp = new double[tempBlock[0].Length]; // Bloque
 
                         for(int j = 0; j < tempBlock[0].Length; j++) { // Asignando valores de bloques
                             temp[j] = tempBlock[i][j];
                         }
+                        Stopwatch sw = Stopwatch.StartNew();
+                        //aqui cuenta el timpo
                         hilos[k] = new Thread(multiply);  // Instanciando hilo
                         hilos[k].Start(new object[] {temp,matrix2OneDim,i+counterBlock}); // Iniciando hilo
                         hilos[k].Join();
+                        tiempo+= sw.Elapsed;
+                        //aqui finaliza
                     }
                     counterBlock += n_block;
                     counterSeg += n_block;
                 }
-                // imprimir(matrix3);
+                vlsGrafica.Add(new HilosTiempo(var_hilos[q],tiempo.TotalMilliseconds));
                 matrix3 = new double[newRows][];
                 for(int i = 0; i < newRows; i++) { // Definiendo matriz resultado como arreglos anidados
                     matrix3[i] = new double[newCols];
                 }
-                
             }
-          
+            
+            graficar(vlsGrafica,newRows,newCols);
+            foreach(var i in vlsGrafica){
+                Console.WriteLine($"Hilos {i.hilos} Tiempo {i.tiempo}");
+            }
+        }
+
+        static void graficar(List<HilosTiempo> valores, int rows, int cols){
+            var plt = new ScottPlot.Plot(600,400);
+            double[] tiempos = new double[valores.Count]; // y
+            double[] hilos = new double[valores.Count]; // x
+            int j =0;
+            foreach(var i in valores){
+                tiempos[j] = i.tiempo;
+                hilos[j] = i.hilos;
+                j++;
+            }
+
+            plt.PlotScatter(hilos,tiempos);
+            plt.Legend();
+
+            plt.Title("Hilos vs Tiempo");
+            plt.YLabel("Tiempo (ms)");
+            plt.XLabel("Hilos");
+            string nombreImagen = string.Format("matriz_resultado_{0}x{1}_Grafica.png",rows,cols);
+            try{
+                plt.SaveFig(nombreImagen);
+                Console.WriteLine("siii");
+            }catch(Exception){
+                Console.WriteLine("noooo");
+            }
         }
 
         static void imprimir(double[][] matr) { // Imprimir matrices
