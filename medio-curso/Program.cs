@@ -10,24 +10,62 @@ namespace medio_curso
     class Program
     {
         static double[][] matrix3;
+        static void imprimir(double[][] matr){
+            Console.WriteLine("MATRIZ ------");
+            for(int i = 0; i < matr.Length; i++){
+                for(int j= 0; j < matr[0].Length; j++){
+                    Console.Write($"{matr[i][j]}, ");
+                }
+                Console.Write("\n");
+            }
+            Console.WriteLine("FIN  MATRIZ ------");
+        }
+
         static void Main(string[] args)
         {
-            double[][] matrix = new double[3][] { 
-                new double[]{ 1, 2}, 
-                new double[]{ 3, 4}, 
-                new double[]{ 5, 6}
-            };
+            // double[][] matrix = new double[3][] { 
+            //     new double[]{ 1, 2}, 
+            //     new double[]{ 3, 4}, 
+            //     new double[]{ 5, 6}
+            // };
 
-            double[][] matrix2 = new double[2][] { 
-                new double[]{7,9,11},
-                new double[]{8,10,12}
+            // double[][] matrix2 = new double[2][] { 
+            //     new double[]{7,9,11},
+            //     new double[]{8,10,12}
                 
+            //     /* 
+            //     7 ; i = 0 , j = 0
+            //     8; i = 1, j = 0
+                
+            //     */
+            // };
+
+
+            double[][] matrix = new double[11][] { 
+                new double[]{7,9,11},
+                new double[]{8,10,12},
+                new double[]{8,10,12},
+                new double[]{8,10,12},
+                new double[]{8,10,12},
+                new double[]{8,10,12},
+                new double[]{8,10,12},
+                new double[]{8,10,12},
+                new double[]{8,10,12},
+                new double[]{8,10,12},
+                new double[]{9,2,32},
                 /* 
                 7 ; i = 0 , j = 0
                 8; i = 1, j = 0
                 
                 */
             };
+
+             double[][] matrix2 = new double[3][] {
+                  new double[]{ 1, 2,3,4,5,6,7,8,9,4}, 
+                new double[]{ 3, 4,9,8,7,6,5,4,3,2}, 
+                new double[]{ 5, 6,5,4,3,2,9,8,7,6 }
+            };
+
 
             int newRows = matrix.Length; // Filas de la primer matriz
             int newCols = matrix2[0].Length; // Columnas de la segunda matriz
@@ -53,57 +91,64 @@ namespace medio_curso
             // }
 
             // # iteraciones
-            int n = 2;
+            int n = 3;
             int hilos_init = 2;
             int[] var_hilos = new int[n];
             if(n <= 12) { // Hilos disponibles
                 for(int i=0; i < n; i ++) { // Guardando variacion de hilos
                     var_hilos[i] = hilos_init;
                     hilos_init += 2;
-                    Console.Write($"{var_hilos[i]}, ");
+                    // Console.Write($"{var_hilos[i]}, ");
                 }
-              Console.Write("\n");  
+            //   Console.Write("\n");  
             } else {
                 throw new Exception("El numero de hilos supera la cantidad de hilos disponibles");
             }
 
-            Thread[] hilos = new Thread[n]; // Serializando hilos
+            for(int q=0; q < n; q ++) {
 
+                Console.WriteLine($"Iteracion: {q}");
 
-            for(int i=0; i<n;i++) {
-                hilos[i] = new Thread(multiply); 
-            }
+                 // Ciclo de iteraciones
+                Thread[] hilos = new Thread[var_hilos[q]]; // Serializando hilos
+                for(int i=0; i<var_hilos[q];i++) {
+                    hilos[i] = new Thread(multiply); 
+                }
 
-            
-
-            for(int k=0; k < n; k++) {
-                for(int i=0; i < newRows; i++) { // Numero de filas = bloques
-                    
-                    double[] temp = new double[matrix[0].Length];
-
-                    for(int j = 0; j < matrix[0].Length; j++) {
-                        temp[j] = matrix[i][j];
+                int n_block = (int) Math.Ceiling((double) newRows / var_hilos[q]);
+                int counterSeg = 0;
+                int counterBlock = 0;
+                for(int k=0; k < var_hilos[q]; k++) {//Ciclo de los hilos
+                    if(k == var_hilos[q] - 1) {
+                        n_block = newRows - counterSeg;
                     }
-                    hilos[k] = new Thread(multiply); 
-                    hilos[k].Start(new object[] {temp,matrix2OneDim,i});
-                    hilos[k].Join();
-                    // while(!hilos[k].IsAlive){
-                    //     Console.WriteLine("siiii");
-                    // }
+                    // Console.WriteLine($"Filas por bloque : {n_block} counter {counterBlock}");
+                    double[][] tempBlock = new double[n_block][];
+                    for(int i=0; i < n_block; i++) {
+                        tempBlock[i] = matrix[counterBlock+i];
+
+                    }
+                    // imprimir(tempBlock);
+                    for(int i=0; i < n_block; i++) { // Numero de filas = bloques
+                        
+                        double[] temp = new double[tempBlock[0].Length];
+
+                        for(int j = 0; j < tempBlock[0].Length; j++) {
+                            temp[j] = tempBlock[i][j];
+                        }
+                        hilos[k] = new Thread(multiply); 
+                        hilos[k].Start(new object[] {temp,matrix2OneDim,i+counterBlock});
+                        hilos[k].Join();
+                    }
+                    counterBlock += n_block;
+                    counterSeg += n_block;
                 }
-            }  
-
-            
-
-
-
-            // multiply(new double[]{1,2},matrix2OneDim,0);
-
-            for(int i=0; i< matrix3.Length; i++) {
-                for(int j=0; j<matrix3[0].Length;j++) {
-                    Console.Write(matrix3[i][j] + "-");
+                // imprimir(matrix3);
+                matrix3 = new double[newRows][];
+                for(int i = 0; i < newRows; i++) { // Definiendo matriz resultado como arreglos anidados
+                    matrix3[i] = new double[newCols];
                 }
-                Console.Write("\n");
+                
             }
           
         }
