@@ -1,0 +1,13 @@
+G:\raulc\Documents\CODEPX\repos\sist-paralelos\secuencial\obj\Debug\netcoreapp3.1\Secuencial.csprojAssemblyReference.cache
+G:\raulc\Documents\CODEPX\repos\sist-paralelos\secuencial\obj\Debug\netcoreapp3.1\Secuencial.AssemblyInfoInputs.cache
+G:\raulc\Documents\CODEPX\repos\sist-paralelos\secuencial\obj\Debug\netcoreapp3.1\Secuencial.AssemblyInfo.cs
+G:\raulc\Documents\CODEPX\repos\sist-paralelos\secuencial\obj\Debug\netcoreapp3.1\Secuencial.csproj.CoreCompileInputs.cache
+G:\raulc\Documents\CODEPX\repos\sist-paralelos\secuencial\bin\Debug\netcoreapp3.1\Secuencial.exe
+G:\raulc\Documents\CODEPX\repos\sist-paralelos\secuencial\bin\Debug\netcoreapp3.1\Secuencial.deps.json
+G:\raulc\Documents\CODEPX\repos\sist-paralelos\secuencial\bin\Debug\netcoreapp3.1\Secuencial.runtimeconfig.json
+G:\raulc\Documents\CODEPX\repos\sist-paralelos\secuencial\bin\Debug\netcoreapp3.1\Secuencial.runtimeconfig.dev.json
+G:\raulc\Documents\CODEPX\repos\sist-paralelos\secuencial\bin\Debug\netcoreapp3.1\Secuencial.dll
+G:\raulc\Documents\CODEPX\repos\sist-paralelos\secuencial\bin\Debug\netcoreapp3.1\Secuencial.pdb
+G:\raulc\Documents\CODEPX\repos\sist-paralelos\secuencial\obj\Debug\netcoreapp3.1\Secuencial.dll
+G:\raulc\Documents\CODEPX\repos\sist-paralelos\secuencial\obj\Debug\netcoreapp3.1\Secuencial.pdb
+G:\raulc\Documents\CODEPX\repos\sist-paralelos\secuencial\obj\Debug\netcoreapp3.1\Secuencial.genruntimeconfig.cache
