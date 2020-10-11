@@ -101,7 +101,6 @@ namespace medio_curso
 
             for(int q=0; q < n; q ++) { // Ciclo de iteraciones
                 TimeSpan tiempo = new TimeSpan();
-                Console.WriteLine($"Iteracion: {q}");
                 Thread[] hilos = new Thread[var_hilos[q]]; // Serializando hilos
                 for(int i=0; i<var_hilos[q];i++) { 
                     hilos[i] = new Thread(multiply); 
@@ -171,9 +170,9 @@ namespace medio_curso
             string nombreImagen = string.Format("matriz_resultado_{0}x{1}_Grafica.png",rows,cols);
             try{
                 plt.SaveFig(nombreImagen);
-                Console.WriteLine("siii");
+                Console.WriteLine("Se ha guardado la imágen");
             }catch(Exception){
-                Console.WriteLine("noooo");
+                Console.WriteLine("No se ha podido guardar la imágen");
             }
         }
 
