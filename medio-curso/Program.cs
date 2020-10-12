@@ -2,7 +2,6 @@
 using System.Threading;
 using System.Collections.Generic;
 using System.Diagnostics;
-using ScottPlot;
 
 namespace medio_curso
 {
