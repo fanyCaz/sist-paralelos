@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "G:\\raulc\\Documents\\CODEPX\\repos\\sist-paralelos\\secuencial\\Secuencial.csproj": {}
+    "g:\\raulc\\Documents\\CODEPX\\repos\\sist-paralelos\\secuencial\\Secuencial.csproj": {}
   },
   "projects": {
-    "G:\\raulc\\Documents\\CODEPX\\repos\\sist-paralelos\\secuencial\\Secuencial.csproj": {
+    "g:\\raulc\\Documents\\CODEPX\\repos\\sist-paralelos\\secuencial\\Secuencial.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "G:\\raulc\\Documents\\CODEPX\\repos\\sist-paralelos\\secuencial\\Secuencial.csproj",
+        "projectUniqueName": "g:\\raulc\\Documents\\CODEPX\\repos\\sist-paralelos\\secuencial\\Secuencial.csproj",
         "projectName": "Secuencial",
-        "projectPath": "G:\\raulc\\Documents\\CODEPX\\repos\\sist-paralelos\\secuencial\\Secuencial.csproj",
+        "projectPath": "g:\\raulc\\Documents\\CODEPX\\repos\\sist-paralelos\\secuencial\\Secuencial.csproj",
         "packagesPath": "C:\\Users\\raulc\\.nuget\\packages\\",
-        "outputPath": "G:\\raulc\\Documents\\CODEPX\\repos\\sist-paralelos\\secuencial\\obj\\",
+        "outputPath": "g:\\raulc\\Documents\\CODEPX\\repos\\sist-paralelos\\secuencial\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\raulc\\AppData\\Roaming\\NuGet\\NuGet.Config"
