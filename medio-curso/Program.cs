@@ -112,13 +112,14 @@ namespace medio_curso
                     if(k == var_hilos[q] - 1) { // Asignar faltante al ultimo hilo
                         n_block = newRows - counterSeg;
                     }
-                    // Console.WriteLine($"Filas por bloque : {n_block} counter {counterBlock}");
+                    Console.WriteLine($"Filas por bloque : {n_block}, Numero de hilos: {var_hilos[q]}");
                     double[][] tempBlock = new double[n_block][]; // Segmentos
                     for(int i=0; i < n_block; i++) { //Asignando bloques (filas) a los segmentos
                         tempBlock[i] = matrix[counterBlock+i];
 
                     }
-                    // imprimir(tempBlock);
+                    Console.WriteLine($"Segmento de hilo {k}");
+                    imprimir(tempBlock);
                     // Numero de filas = bloques, inicializando hilos y realizando operaciones por bloques
                     for(int i=0; i < n_block; i++) { 
                         
@@ -134,7 +135,7 @@ namespace medio_curso
                     counterBlock += n_block;
                     counterSeg += n_block;
                 }
-                // imprimir(matrix3);
+                imprimir(matrix3);
                 matrix3 = new double[newRows][];
                 for(int i = 0; i < newRows; i++) { // Definiendo matriz resultado como arreglos anidados
                     matrix3[i] = new double[newCols];
@@ -145,14 +146,14 @@ namespace medio_curso
         }
 
         static void imprimir(double[][] matr) { // Imprimir matrices
-            Console.WriteLine("MATRIZ ------");
+            Console.WriteLine("-----------");
             for(int i = 0; i < matr.Length; i++){
                 for(int j= 0; j < matr[0].Length; j++){
                     Console.Write($"{matr[i][j]}, ");
                 }
                 Console.Write("\n");
             }
-            Console.WriteLine("FIN  MATRIZ ------");
+            Console.WriteLine("-----------");
         }
          //static void multiply(double[] array1, double[] array2, int row) {
         static void multiply(object data) {
