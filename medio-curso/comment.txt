@@ -1,0 +1,40 @@
+  // int c = 0;
+            // for(int i = 0; i< newRows; i++) {
+            //     for(int j=0; j< newCols; j++) {
+            //         matrix3[i][j] = c;
+            //         c++;
+            //     }
+            // }
+            // for(int i = 0; i< newRows; i++) {
+            //     for(int j=0; j< newCols; j++) {
+            //         Console.WriteLine($"{matrix3[i][j]}");
+            //     }
+            // }
+            // Console.Write($"{newRows} x {newCols}");
+
+             static void multiply(double[] array1, double[] array2, int row) {
+
+
+                  double[][] matrix = new double[3][] { 
+                new double[]{ 1, 2,3,4,5,6,7,8,9,0}, 
+                new double[]{ 3, 4,9,8,7,6,5,4,3,2}, 
+                new double[]{ 5, 6,5,4,3,2,9,8,7,6 }
+            };
+
+             double[][] matrix2 = new double[2][] { 
+                new double[]{7,9,11,6,9},
+                new double[]{8,10,12,4,8},
+                new double[]{8,10,12,3,6},
+                new double[]{8,10,12,2,4},
+                new double[]{8,10,12,1,3},
+                new double[]{8,10,12,0,1},
+                new double[]{8,10,12,9,2},
+                new double[]{8,10,12,8,3},
+                new double[]{8,10,12,7,4},
+                new double[]{8,10,12,6,5},
+                /* 
+                7 ; i = 0 , j = 0
+                8; i = 1, j = 0
+                
+                */
+            };
