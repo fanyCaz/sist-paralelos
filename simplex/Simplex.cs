@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 namespace simplex{
     class Constraint{
@@ -30,11 +31,20 @@ namespace simplex{
         static int a;
         static int e;
         static double z;
+
+        static object ob = new object();
+        static void updateTableu(int m, int numRow, int numColumn){
+            lock(ob){
+            if(m == numRow) return; //don't change the pivot row
+                    double pivote = tableu[m][numColumn]*-1;
+                    double[] temp = tableu[m].Zip(tableu[numRow], (s,x) => ( (x*pivote) + s ) ).ToArray();
+                    tableu[m] =temp;
+        }}
         static void printTableu(){
             for(int i = 0; i < tableu.Length; i++){
                 for(int j = 0; j < cols; j++){
                     if(tableu[i][j] < 0 || tableu[i][j] > 9)
-                        Console.Write($"{ tableu[i][j]:#.###} |");
+                        Console.Write($"{tableu[i][j]:#.###} |");
                     else
                         Console.Write($"{tableu[i][j]:#.###}  |");
                 }
@@ -129,11 +139,13 @@ namespace simplex{
                 }
                 //multiply the rest of rows to update them using the pivot row
                 for(int m = 0; m < rows; m++){
-                    if(m == numRow) continue; //don't change the pivot row
-                    double pivote = tableu[m][numColumn]*-1;
-                    double[] temp = tableu[m].Zip(tableu[numRow], (s,x) => ( (x*pivote) + s ) ).ToArray();
-                    tableu[m] =temp;
+                    Thread nose = new Thread(()=>{
+                        updateTableu(m, numRow, numColumn);
+                    });
+                    nose.Start();
+                    nose.Join();
                 }
+                
                 printTableu();
             }
         }
