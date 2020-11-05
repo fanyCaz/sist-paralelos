@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading;
 
 namespace simplex{
-    class Constraint{
+    public class Constraint{
         public enum Type
         {
             LessOrEqual,
@@ -154,7 +154,7 @@ namespace simplex{
             double x1 = tableu[0][cols-1];
             double x2 = tableu[1][cols-1];
             double x3 = tableu[2][cols-1];
-            Console.WriteLine($"valor óptimo {z:#.###}, var 1 {x1:#.###} var 2 {x2:#.###} var 3 {x3:#.###}");
+            Console.WriteLine($"valor óptimo :{z:#.###}, var 1: {x1:#.###} var 2 :{x2:#.###} var 3 :{x3:#.###}");
         }
         public static void Init(){
             

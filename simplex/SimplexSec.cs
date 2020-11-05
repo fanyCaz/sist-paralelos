@@ -3,23 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace simplex{
-    class Constraint{
-        public enum Type
-        {
-            LessOrEqual,
-            GreaterOrEqual,
-            Equal
-        }
-        public int[] constants;
-        public int result;
-        public Type typeR;
-        public Constraint(int[] constants, int result, Type type){
-            this.constants = constants;
-            this.result = result;
-            this.typeR = type;
-        }
-    }
-    class Simplex{
+    class SimplexSec{
         static List<Constraint> constraintsList = new List<Constraint>();
         static int[] objectiveFunction;
         static double[][] tableu;
